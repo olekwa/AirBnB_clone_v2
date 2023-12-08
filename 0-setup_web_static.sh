@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+<<<<<<< HEAD
 # Sets up a web server for deployment of web_static.
 
 apt-get update
@@ -36,3 +37,16 @@ printf %s "server {
 }" > /etc/nginx/sites-available/default
 
 service nginx restart
+=======
+# This will sets up the web servers for the deployment of web_static
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y install nginx
+sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
+echo "This is a test" | sudo tee /data/web_static/releases/test/index.html
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo chown -hR ubuntu:ubuntu /data/
+sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+sudo service nginx start
+>>>>>>> d3f7c83689ec16d695d089a3626ce4820ecacbd6
